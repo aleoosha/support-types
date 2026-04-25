@@ -1,0 +1,22 @@
+{
+    "name": "aleoosha/support-types",
+    "description": "Fundamental types and value objects for Aleoosha ecosystem, including FixedPoint math.",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Aleoosha",
+            "email": "emoladushki@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aleoosha\\Support\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
