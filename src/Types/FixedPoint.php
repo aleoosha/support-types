@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aleoosha\Support\Types;
 
 use DivisionByZeroError;
