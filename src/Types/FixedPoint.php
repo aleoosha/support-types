@@ -1,24 +1,22 @@
-<?php 
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace Aleoosha\Support\Types;
 
 use DivisionByZeroError;
 
 /**
- * FixedPoint - Fixed-point number implementation.
- * Provides high precision for calculations by avoiding floating-point issues.
+ * FixedPoint - High-precision value object for financial and engineering calculations.
+ * Avoids floating-point math issues by storing values as integers with a scale factor.
  */
 final class FixedPoint
 {
     /**
-     * The scale factor: 1000 represents 3 decimal places.
+     * The scale factor: 1000 represents 3 decimal places (milli-units).
      */
     public const SCALE = 1000;
 
     /**
-     * @param int $value Internal integer representation (actual value * SCALE)
+     * @param int $value Internal integer representation (actual value * SCALE).
      */
     public function __construct(
         public readonly int $value
@@ -41,7 +39,7 @@ final class FixedPoint
     }
 
     /**
-     * Converts the internal value back to a float.
+     * Converts the internal value back to a float for display or external API.
      */
     public function toFloat(): float
     {
@@ -66,7 +64,7 @@ final class FixedPoint
 
     /**
      * Multiplies by another FixedPoint value.
-     * Dividing by SCALE is required to maintain the correct fixed-point position.
+     * Dividing by SCALE is required to maintain the fixed-point position.
      */
     public function multiply(self $other): self
     {
@@ -82,12 +80,11 @@ final class FixedPoint
         if ($other->value === 0) {
             throw new DivisionByZeroError("Cannot divide FixedPoint by zero.");
         }
-
         return new self((int) (($this->value * self::SCALE) / $other->value));
     }
 
     /**
-     * Returns true if the current value is greater than the other.
+     * Comparison: Greater Than (>)
      */
     public function isGreaterThan(self $other): bool
     {
@@ -95,7 +92,7 @@ final class FixedPoint
     }
 
     /**
-     * Returns true if the current value is less than the other.
+     * Comparison: Less Than (<)
      */
     public function isLessThan(self $other): bool
     {
@@ -103,7 +100,23 @@ final class FixedPoint
     }
 
     /**
-     * Returns true if both values are equal.
+     * Comparison: Greater Than or Equal (>=)
+     */
+    public function isGreaterThanOrEqual(self $other): bool
+    {
+        return $this->value >= $other->value;
+    }
+
+    /**
+     * Comparison: Less Than or Equal (<=)
+     */
+    public function isLessThanOrEqual(self $other): bool
+    {
+        return $this->value <= $other->value;
+    }
+
+    /**
+     * Comparison: Equality (==)
      */
     public function equals(self $other): bool
     {
